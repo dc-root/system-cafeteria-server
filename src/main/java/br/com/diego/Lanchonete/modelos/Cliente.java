@@ -1,4 +1,6 @@
-package main.java.br.com.diego.Lanchonete.modelos;
+package br.com.diego.Lanchonete.modelos;
 
 public class Cliente extends Pessoa {
+    public Cliente() {}
+    public void avaliarPedido() {}
 }

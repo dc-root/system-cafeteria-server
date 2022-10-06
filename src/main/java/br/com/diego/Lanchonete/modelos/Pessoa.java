@@ -1,4 +1,4 @@
-package main.java.br.com.diego.Lanchonete.modelos;
+package br.com.diego.Lanchonete.modelos;
 
 import java.time.*;
 
