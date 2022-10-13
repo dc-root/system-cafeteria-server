@@ -1,8 +1,8 @@
 package br.com.diego.Lanchonete.repositorys.interfaces;
 
-import br.com.diego.Lanchonete.modelos.Cliente;
-
 import java.util.List;
+
+import br.com.diego.Lanchonete.templates.Cliente;
 
 public interface ClienteRepositoryInterface {
     List<Cliente> listar();
