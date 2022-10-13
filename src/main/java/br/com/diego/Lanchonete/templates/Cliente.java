@@ -14,8 +14,8 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded=true, callSuper=false)
 @JsonRootName(value = "clientes")
+@Table(name = "clientes")
 @Entity
-@Table(name = "cliente")
 public class Cliente extends Pessoa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

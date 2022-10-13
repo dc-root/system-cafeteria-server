@@ -13,15 +13,12 @@ import javax.persistence.EntityManager;
 
 @Component
 public class ClienteRepository implements ClienteRepositoryInterface {
-
     @PersistenceContext
     private EntityManager manager;
 
     @Override
     public List<Cliente> listar() {
-        return manager
-            .createQuery("FROM cliente", Cliente.class)
-            .getResultList();
+        return manager.createQuery("FROM Cliente", Cliente.class).getResultList();
     }
 
     @Override
