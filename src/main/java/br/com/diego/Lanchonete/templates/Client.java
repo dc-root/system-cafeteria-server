@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
 @JsonRootName(value = "clientes")
 @Table(name = "clientes")
 @Entity
-public class Cliente extends Pessoa {
+public class Client extends Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
