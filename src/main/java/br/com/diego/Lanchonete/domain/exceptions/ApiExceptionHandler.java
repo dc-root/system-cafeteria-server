@@ -1,4 +1,4 @@
-package br.com.diego.Lanchonete.service.Exceptions;
+package br.com.diego.Lanchonete.domain.exceptions;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
