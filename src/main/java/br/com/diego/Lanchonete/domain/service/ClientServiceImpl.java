@@ -1,12 +1,12 @@
 package br.com.diego.Lanchonete.domain.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import br.com.diego.Lanchonete.domain.repository.ClienteRepository;
@@ -14,9 +14,6 @@ import br.com.diego.Lanchonete.domain.templates.Cliente;
 
 @Service
 public class ClientServiceImpl {
-    @PersistenceContext
-    private EntityManager manager;
-
     @Autowired
     private ClienteRepository repository;
 
@@ -25,13 +22,12 @@ public class ClientServiceImpl {
         return repository.save(cliente);
     }
 
-    public List<Cliente> listarClientes() {
-        return repository.findAll();
+    public Page<Cliente> listarClientes(Pageable paginacao) {
+        return repository.findAll(paginacao);
     }
 
     public Cliente pesquisarClientePorIdentificador(Long id) {
-        return manager.find(Cliente.class, id);
-        // return repository.findById(id).orElseThrow(() -> new NonExistentEntityException("CLIENTE NÃO ENCONTRDO"));
+        return repository.getReferenceById(id);
     }
 
     public List<Cliente> pesquisarClientePorNome(String nome) {

@@ -1,4 +1,4 @@
-package br.com.diego.Lanchonete.address.utils.config;
+package br.com.diego.Lanchonete.utils.config;
 
 import java.sql.Date;
 import java.time.LocalDate;
