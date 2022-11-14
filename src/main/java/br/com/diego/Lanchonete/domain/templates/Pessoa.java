@@ -32,6 +32,6 @@ public abstract class Pessoa {
     protected String telefone;
 
     @JsonIgnore
-    // @Column(name="DATA_ANIVERSARIO") @JsonProperty("birhday") @Pattern(regexp="^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$")
+    // @Column(length=10, name="DATA_ANIVERSARIO", columnDefinition="DATE") @JsonProperty("birhday") @Pattern(regexp="dd/MM/yyyy")
     protected LocalDate birthDay;
 }

@@ -1,4 +1,4 @@
-package br.com.diego.Lanchonete.domain.templates.cliente;
+package br.com.diego.Lanchonete.domain.templates;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +8,6 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-import br.com.diego.Lanchonete.domain.templates.Pessoa;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

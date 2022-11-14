@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import br.com.diego.Lanchonete.domain.service.ClientServiceImpl;
-import br.com.diego.Lanchonete.domain.templates.cliente.Cliente;
+import br.com.diego.Lanchonete.domain.templates.Cliente;
 
 @RestController
 @RequestMapping("/clientes")

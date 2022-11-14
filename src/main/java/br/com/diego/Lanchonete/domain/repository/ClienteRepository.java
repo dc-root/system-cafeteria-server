@@ -1,7 +1,7 @@
 package br.com.diego.Lanchonete.domain.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import br.com.diego.Lanchonete.domain.templates.Cliente;
 
-import br.com.diego.Lanchonete.domain.templates.cliente.Cliente;
-
-public interface ClienteRepository extends JpaRepository<Cliente, Long> {}
+@Repository
+public interface ClienteRepository extends GenericRepository<Cliente> {}

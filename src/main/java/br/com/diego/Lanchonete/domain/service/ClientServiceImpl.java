@@ -10,34 +10,35 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import br.com.diego.Lanchonete.domain.repository.ClienteRepository;
-import br.com.diego.Lanchonete.domain.templates.cliente.Cliente;
-import br.com.diego.Lanchonete.domain.service.interfaces.GenericInterfaceService;
+import br.com.diego.Lanchonete.domain.templates.Cliente;
 
 @Service
-public class ClientServiceImpl implements GenericInterfaceService<Cliente> {
+public class ClientServiceImpl {
     @PersistenceContext
     private EntityManager manager;
 
     @Autowired
     private ClienteRepository repository;
 
-    @Override @Transactional
+    @Transactional
     public Cliente cadastrarCliente(Cliente cliente) {
         return repository.save(cliente);
     }
 
-    @Override
     public List<Cliente> listarClientes() {
         return repository.findAll();
     }
 
-    @Override
     public Cliente pesquisarClientePorIdentificador(Long id) {
         return manager.find(Cliente.class, id);
         // return repository.findById(id).orElseThrow(() -> new NonExistentEntityException("CLIENTE NÃO ENCONTRDO"));
     }
 
-    @Override @Transactional
+    public List<Cliente> pesquisarClientePorNome(String nome) {
+        return repository.findByNome(nome);
+    }
+
+    @Transactional
     public void removerCliente(Cliente client) {
         repository.delete(client);
     }

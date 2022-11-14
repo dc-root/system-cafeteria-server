@@ -1,4 +1,4 @@
-package br.com.diego.Lanchonete.api.config;
+package br.com.diego.Lanchonete.address.utils.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
