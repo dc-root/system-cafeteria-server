@@ -16,7 +16,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,7 +26,8 @@ import lombok.NoArgsConstructor;
 public class Atendente extends Pessoa {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(length = 1, name="META_DIARIA") @JsonProperty("dailyGoal") @NotNull
+    
+    @NotNull(message = "O campo 'dailyGoal' não pode ser null")
+    @Column(length = 1, name="META_DIARIA") @JsonProperty("dailyGoal")
     private int metaDiaria;
 }

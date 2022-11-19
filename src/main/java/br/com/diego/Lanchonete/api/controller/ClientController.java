@@ -1,7 +1,5 @@
 package br.com.diego.Lanchonete.api.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -11,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
@@ -49,41 +46,16 @@ public class ClientController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Cliente> update(
-        @RequestBody @Valid Cliente customeData,
+    public Cliente update(
+        @RequestBody @Valid Cliente clientData,
         @PathVariable(value="id") Long clientId
     ) {
-        Cliente OldClient = customerService.pesquisarClientePorIdentificador(clientId);
-
-        if(OldClient != null) {
-            Cliente dataCliente = checkNullFields(customeData, OldClient);
-
-            BeanUtils.copyProperties(dataCliente, OldClient, "id", "cpf");
-            Cliente saveClient = customerService.cadastrarCliente(OldClient);
-            return ResponseEntity.ok(saveClient);
-        }
-
-        return ResponseEntity.notFound().build();
+        return customerService.atualizarCliente(clientData, clientId);
     }
-
-    private Cliente checkNullFields(Cliente reqBody, Cliente old) {
-        if(reqBody.getEmail() == null) {
-            reqBody.setEmail(old.getEmail());
-
-        } if(reqBody.getNome() == null) {
-            reqBody.setNome(old.getNome());
-
-        } if(reqBody.getTelefone() == null) {
-            reqBody.setTelefone(old.getTelefone());
-        }
-
-        return reqBody;
-    }
-
+    
     @DeleteMapping("/{id}")
-    public Cliente remove(@PathVariable(value="id") Long clientId) {
+    public void remove(@PathVariable(value="id") Long clientId) {
         Cliente client = customerService.pesquisarClientePorIdentificador(clientId);
-        customerService.removerCliente(client);
-        return client;
+        customerService.removerCliente(client.getId());
     }
 }
