@@ -16,9 +16,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Data @NoArgsConstructor @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded=true, callSuper=false)
 @JsonRootName(value = "attendants")
 @Table(name = "ATENDENTES")
@@ -28,6 +26,6 @@ public class Atendente extends Pessoa {
     private Long id;
     
     @NotNull(message = "O campo 'dailyGoal' não pode ser null")
-    @Column(length = 1, name="META_DIARIA") @JsonProperty("dailyGoal")
+    @Column(length = 30, name="META_DIARIA") @JsonProperty("dailyGoal")
     private int metaDiaria;
 }

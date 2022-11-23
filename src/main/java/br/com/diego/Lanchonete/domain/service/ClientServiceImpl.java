@@ -43,9 +43,11 @@ public class ClientServiceImpl {
     }
 
     public Page<Cliente> listarClientes(Pageable paginacao) {
-        Page<Cliente> clientes = repository.findAll(paginacao);
+        Page<Cliente> clientes;
 
-        if(clientes.isEmpty()) {
+        try {
+            clientes = repository.findAll(paginacao);
+        } catch(NoDataFoundException e) {
             throw new NoDataFoundException("> Nenhum dado de cliente encontrado!");
         }
         

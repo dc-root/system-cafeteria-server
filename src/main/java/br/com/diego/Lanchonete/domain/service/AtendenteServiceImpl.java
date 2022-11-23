@@ -43,9 +43,11 @@ public class AtendenteServiceImpl {
     }
 
     public Page<Atendente> listarAtendentes(Pageable paginacao) {
-        Page<Atendente> atendentes = repository.findAll(paginacao);
-
-        if (atendentes.isEmpty()) { 
+        Page<Atendente> atendentes; 
+        
+        try {
+            atendentes = repository.findAll(paginacao);
+        } catch(NoDataFoundException e) {
             throw new NoDataFoundException("> Nenhum dado de atendente encontrado!");
         }
 
