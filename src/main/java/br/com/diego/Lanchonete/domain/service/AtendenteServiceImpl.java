@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.diego.Lanchonete.domain.exceptions.NoDataFoundException;
+import br.com.diego.Lanchonete.domain.exceptions.SucessMessageException;
 import br.com.diego.Lanchonete.domain.repository.AtendenteRepository;
 import br.com.diego.Lanchonete.domain.templates.Atendente;
 
@@ -30,13 +31,14 @@ public class AtendenteServiceImpl {
     }
 
     @Transactional
-    public Atendente atualizarAtendente(Atendente atendenteInput, Long id) {
+    public Atendente atualizarAtendente(Atendente atendenteInput, Long id) throws NoDataFoundException {
         Optional<Atendente> atendenteSearch = repository.findByCpf(atendenteInput.getCpf());
 
         if(atendenteSearch.isPresent()) {
+            pesquisarAtendentePorIdentificador(id);
             atendenteInput.setId(atendenteSearch.get().getId());
         } else {
-            throw new IllegalArgumentException("> Nenhum atendente com este CPF cadastrado"); 
+            throw new IllegalArgumentException("> Nenhum atendente com o CPF='"+atendenteInput.getCpf()+"' cadastrado");
         }
 
         return repository.save(atendenteInput);
@@ -58,7 +60,7 @@ public class AtendenteServiceImpl {
         return repository
             .findById(id)
             .orElseThrow(() -> 
-                new EntityNotFoundException("> Atendente não encontrado pelo identificador especificado!")
+                new EntityNotFoundException("> Atendente não encontrado pelo id='"+id+"' especificado!")
             );
     }
 
@@ -68,6 +70,8 @@ public class AtendenteServiceImpl {
             repository.deleteById(id);
         } catch(EmptyResultDataAccessException e) {
             throw new EntityNotFoundException("> Atendente não encontrado pelo identificador especificado!");
+        } finally {
+            throw new SucessMessageException("> atendente removido com sucesso!");
         }
     }
 }

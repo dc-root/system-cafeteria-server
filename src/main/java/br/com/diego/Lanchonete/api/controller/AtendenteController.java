@@ -58,7 +58,7 @@ public class AtendenteController {
         return serviceAtendente.atualizarAtendente(atendenteData, atendenteId);
     }
 
-    @PatchMapping("/{id}")
+    /*@PatchMapping("/{id}")
     public Atendente partiallyUpdate(
         @PathVariable(value="id") Long atendenteId,
         @RequestBody @Valid Map<String, Object> camposPreenchidos
@@ -83,7 +83,7 @@ public class AtendenteController {
             Object novoValor = ReflectionUtils.getField(field, atendenteOrigem);
             ReflectionUtils.setField(field, atendenteDestino, novoValor);
         });
-    }
+    }*/
 
     @DeleteMapping("/{id}")
     public void remove(

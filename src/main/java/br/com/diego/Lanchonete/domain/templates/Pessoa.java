@@ -1,6 +1,5 @@
 package br.com.diego.Lanchonete.domain.templates;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
@@ -10,7 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded=true)
@@ -26,15 +24,12 @@ public abstract class Pessoa {
     protected String cpf;
 
     @Email(message = "Campo 'email' não corresponde a um email valido")
-    @Column(length=40, nullable=false, name="EMAIL")
+    @Column(length=40, name="EMAIL")
     protected String email;
 
     @Column(length=13, name="TELEFONE") @JsonProperty("phone")
     protected String telefone;
 
-    @JsonIgnore
-    // @Pattern(regexp="dd/mm/yyyy", message = "Campo 'birhday' não correspond a uma data valida (dd/mm/yyyy)")
-    // @NotBlank(message = "Campo 'birthday' não  pode ser  um valor null ou vazio")
-    // @Column(length=10, name="DATA_ANIVERSARIO", columnDefinition="DATE") @JsonProperty("birthday")
+    @Column(length=10, name="DATA_ANIVERSARIO") @JsonProperty("birthday")
     protected String birthDay;
 }
