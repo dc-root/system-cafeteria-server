@@ -9,6 +9,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,5 +37,13 @@ public class ProdutoController {
     @GetMapping("/{id}")
     public Produto search(@PathVariable(value="id") Long produtoId) {
         return serviceProduto.pesquisarProdutoPeloCodigo(produtoId);
+    }
+
+    @PutMapping("/{id}")
+    public Produto update(
+        @RequestBody @Valid Produto produtoData,
+        @PathVariable(value="id") Long produtoId
+    ) {
+        return serviceProduto.atualizarProduto(produtoData, produtoId);
     }
 }

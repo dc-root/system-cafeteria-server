@@ -1,5 +1,7 @@
 package br.com.diego.Lanchonete.domain.service;
 
+import java.util.Optional;
+
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
@@ -19,7 +21,7 @@ public class ProdutoServiceImpl {
 
     @Transactional
     public Produto cadastrarProduto(Produto produto) {
-        if(repository.findById(produto.getCodigo()).isPresent()) {
+        if(repository.findById(produto.getId()).isPresent()) {
             throw new IllegalArgumentException("> produto com esse codigo='"+produto.getCodigo()+"' já existe!");
         }
 
@@ -32,7 +34,7 @@ public class ProdutoServiceImpl {
         try {
             produtos = repository.findAll(paginacao);
         } catch(NoDataFoundException e) {
-            throw new NoDataFoundException("");
+            throw new NoDataFoundException("> Nenhum dado de produto encontrado");
         }
 
         return produtos;    
@@ -45,7 +47,18 @@ public class ProdutoServiceImpl {
                 new EntityNotFoundException("> Produto com o codigo='"+id+"' não encontrado!")
             );
     }
-}
 
-// TODO: adicionar produto
-// TODO: remover produto
+    @Transactional
+    public Produto atualizarProduto(Produto produtoInput, Long id) throws EntityNotFoundException {
+        Optional<Produto> produtoSearch = repository.findByCodigo(produtoInput.getCodigo());
+
+        if(produtoSearch.isPresent()) {
+            pesquisarProdutoPeloCodigo(id);
+            produtoInput.setCodigo(produtoSearch.get().getCodigo());
+        } else {
+            throw new IllegalArgumentException("> Nenhum prroduto com esse codigo='"+produtoInput.getCodigo()+"' cadastrado");
+        }
+
+        return repository.save(produtoInput);
+    }
+}

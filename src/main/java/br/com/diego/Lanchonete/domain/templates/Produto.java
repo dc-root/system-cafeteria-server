@@ -22,12 +22,15 @@ import lombok.NoArgsConstructor;
 @Table(name = "PRODUTOS")
 @Entity
 public class Produto {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(length=20, name="NOME") @JsonProperty("productName")
     private String nome;
 
-    @Id @EqualsAndHashCode.Include
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long codigo;
+    @EqualsAndHashCode.Include
+    @Column(length = 10) @NotNull(message="O campo codigo não pode ser vazio") //@Size(min=1000, max=9999)
+    private String codigo;
 
     @NotNull(message = "O campo 'quantidade' não pode ser nulo")
     @Column(length = 100, name="QNT_DE_PRODUTOS") @JsonProperty("qntProducts")
