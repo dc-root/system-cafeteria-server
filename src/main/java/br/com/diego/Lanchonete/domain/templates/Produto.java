@@ -27,11 +27,11 @@ public class Produto {
 
     @Id @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int codigo;
+    private Long codigo;
 
     @NotNull(message = "O campo 'quantidade' não pode ser nulo")
     @Column(length = 100, name="QNT_DE_PRODUTOS") @JsonProperty("qntProducts")
-    private int quantidade;
+    private Long quantidade;
 
     @NotNull(message = "O campo 'valorUnitario' não pode ser nulo")
     @Column(length = 999, name="VALOR_UNITARIO") @JsonProperty("unitPrice")
