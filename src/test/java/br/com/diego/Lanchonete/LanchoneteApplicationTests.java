@@ -8,7 +8,6 @@ import br.com.diego.Lanchonete.domain.templates.Atendente;
 
 @SpringBootTest
 class LanchoneteApplicationTests {
-
 	@Test
 	void contextLoads() {
 

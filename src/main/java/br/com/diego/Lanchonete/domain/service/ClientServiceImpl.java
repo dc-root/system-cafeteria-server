@@ -65,13 +65,11 @@ public class ClientServiceImpl {
     }
 
     @Transactional
-    public void removerCliente(Long id) throws SucessMessageException{
+    public void removerCliente(Long id) {
         try {
             repository.deleteById(id);
         } catch(EmptyResultDataAccessException e) {
             throw new EntityNotFoundException("> cliente não encontrado pelo id='"+id+"' especificado!");
-        } finally {
-            throw new SucessMessageException("> cliente removido com sucesso!");
         }
     }
 }

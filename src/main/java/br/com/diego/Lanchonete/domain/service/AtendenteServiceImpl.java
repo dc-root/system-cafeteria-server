@@ -68,10 +68,9 @@ public class AtendenteServiceImpl {
     public void removerAtendente(Long id) {
         try {
             repository.deleteById(id);
+
         } catch(EmptyResultDataAccessException e) {
-            throw new EntityNotFoundException("> Atendente não encontrado pelo identificador especificado!");
-        } finally {
-            throw new SucessMessageException("> atendente removido com sucesso!");
+            throw new EntityNotFoundException("> Atendente não encontrado pelo id='"+id+"' especificado!");
         }
     }
 }

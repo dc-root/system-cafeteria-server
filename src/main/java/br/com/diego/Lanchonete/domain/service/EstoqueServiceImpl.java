@@ -3,16 +3,16 @@ package br.com.diego.Lanchonete.domain.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.diego.Lanchonete.domain.repository.EstoqueRepository;
+// import br.com.diego.Lanchonete.domain.repository.EstoqueRepository;
 import br.com.diego.Lanchonete.domain.templates.Produto;
 
-//@Service
+// @Service
 public class EstoqueServiceImpl {
-    /*@Autowired
-    private ProdutoServiceImpl serviceProduto;
+    // @Autowired
+    // private EstoqueRepository repository;
 
-    @Autowired
-    private EstoqueRepository repository;*/
+    // @Autowired
+    // private ProdutoServiceImpl serviceProduto;
 
     // public Produto adicionarProdutoAoEstoque(Produto produto) {
     //     return produto;

@@ -53,8 +53,11 @@ public class ClientController {
     }
     
     @DeleteMapping("/{id}")
-    public void remove(@PathVariable(value="id") Long clientId) {
-        Cliente client = customerService.pesquisarClientePorIdentificador(clientId);
-        customerService.removerCliente(client.getId());
+    public void remove(
+        @PathVariable(value="id") Long clientId
+    ) {
+        customerService.removerCliente(
+            customerService.pesquisarClientePorIdentificador(clientId).getId()
+        );
     }
 }

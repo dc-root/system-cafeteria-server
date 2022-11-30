@@ -4,8 +4,8 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
-//@Entity
+// @Entity
 public class Estoque {
-    @OneToMany
-    private List<Produto> produtos;
+    // @OneToMany
+    // private List<Produto> produtos;
 }
