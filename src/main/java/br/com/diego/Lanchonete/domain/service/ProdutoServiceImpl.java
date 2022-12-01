@@ -61,4 +61,13 @@ public class ProdutoServiceImpl {
 
         return repository.save(produtoInput);
     }
+
+    @Transactional
+    public void removerProduto(Long id) {
+        try {
+            repository.deleteById(id);
+        } catch(EntityNotFoundException e) {
+            throw new EntityNotFoundException("> Produto não encontrado pelo id='"+id+"'");
+        }
+    }
 }
