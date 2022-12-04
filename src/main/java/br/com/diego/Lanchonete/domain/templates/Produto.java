@@ -6,37 +6,59 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@Data @NoArgsConstructor @AllArgsConstructor
+@Data @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded=true, callSuper=false)
-@JsonRootName(value = "products")
+@JsonRootName(value = "product")
 @Table(name = "PRODUTOS")
 @Entity
 public class Produto {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length=20, name="NOME") @JsonProperty("productName")
+    @EqualsAndHashCode.Include
+    @Column(length=20, name="NOME") @JsonProperty("productName") @NotBlank
     private String nome;
 
     @EqualsAndHashCode.Include
-    @Column(length = 10) @NotNull(message="O campo codigo não pode ser vazio") //@Size(min=1000, max=9999)
+    @Column(length = 10) @JsonProperty("code") @NotBlank @Size(min=8, max=8)
     private String codigo;
 
-    @NotNull(message = "O campo 'quantidade' não pode ser nulo")
-    @Column(length = 100, name="QNT_DE_PRODUTOS") @JsonProperty("qntProducts")
-    private Long quantidade;
-
-    @NotNull(message = "O campo 'valorUnitario' não pode ser nulo")
-    @Column(length = 999, name="VALOR_UNITARIO") @JsonProperty("unitPrice")
+    @Column(name="QNT_DE_PRODUTOS") @JsonProperty("qntProducts") @NotNull
+    private int quantidadeProduto=1;
+    
+    @Column(name="VALOR_UNITARIO") @JsonProperty("unitPrice") @NotNull
     private double valorUnitario;
+
+    public Produto(
+        String nome,
+        String codigo,
+        int quantidadeProduto,
+        double valorUnitario
+    ) {
+        this.nome = nome;
+        this.codigo = codigo;
+        this.quantidadeProduto = quantidadeProduto;
+        this.valorUnitario = valorUnitario;
+    }
+
+    public Produto(
+        String nome,
+        String codigo,
+        double valorUnitario
+    ) {
+        this.nome = nome;
+        this.codigo = codigo;
+        this.valorUnitario = valorUnitario;
+    }
 }

@@ -12,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.diego.Lanchonete.domain.exceptions.NoDataFoundException;
-import br.com.diego.Lanchonete.domain.exceptions.SucessMessageException;
 import br.com.diego.Lanchonete.domain.repository.AtendenteRepository;
 import br.com.diego.Lanchonete.domain.templates.Atendente;
 
@@ -32,11 +31,14 @@ public class AtendenteServiceImpl {
 
     @Transactional
     public Atendente atualizarAtendente(Atendente atendenteInput, Long id) throws NoDataFoundException {
-        Optional<Atendente> atendenteSearch = repository.findByCpf(atendenteInput.getCpf());
+        Optional<Atendente> atendenteSearchByCpf = repository.findByCpf(atendenteInput.getCpf());
 
-        if(atendenteSearch.isPresent()) {
-            pesquisarAtendentePorIdentificador(id);
-            atendenteInput.setId(atendenteSearch.get().getId());
+        if(atendenteSearchByCpf.isPresent()) {
+            if(atendenteSearchByCpf.get().getId() == id) {
+                atendenteInput.setId(atendenteSearchByCpf.get().getId());
+            } else {
+                throw new IllegalArgumentException("> CPF='"+atendenteInput.getCpf()+"' não corresponde ao id='"+id+"' do produto a ser atualizado");
+            }
         } else {
             throw new IllegalArgumentException("> Nenhum atendente com o CPF='"+atendenteInput.getCpf()+"' cadastrado");
         }

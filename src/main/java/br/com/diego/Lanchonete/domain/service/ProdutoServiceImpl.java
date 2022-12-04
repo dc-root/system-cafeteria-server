@@ -19,14 +19,16 @@ public class ProdutoServiceImpl {
     @Autowired
     private ProdutoRepository repository;
 
-    @Transactional
+    /*@Transactional
     public Produto cadastrarProduto(Produto produto) {
-        if(repository.findById(produto.getId()).isPresent()) {
-            throw new IllegalArgumentException("> produto com esse codigo='"+produto.getCodigo()+"' já existe!");
+        if(repository.findByCode(produto.getCode()).isPresent()) {
+            throw new IllegalArgumentException("> produto com esse codigo='"+produto.getCode()+"' já existe!");
+        } else if(repository.findByNome(produto.getNome()).isPresent()) {
+            throw new IllegalArgumentException("> produto com esse nome='"+produto.getNome()+"' já existe!");
         }
 
         return repository.save(produto);
-    }
+    }*/
 
     public Page<Produto> listarProdutos(Pageable paginacao) {
         Page<Produto> produtos;
@@ -37,10 +39,10 @@ public class ProdutoServiceImpl {
             throw new NoDataFoundException("> Nenhum dado de produto encontrado");
         }
 
-        return produtos;    
+        return produtos;
     }
 
-    public Produto pesquisarProdutoPeloCodigo(Long id) {
+    public Produto pesquisarProdutoPorIdentificador(Long id) {
         return repository
             .findById(id)
             .orElseThrow(() ->
@@ -50,13 +52,16 @@ public class ProdutoServiceImpl {
 
     @Transactional
     public Produto atualizarProduto(Produto produtoInput, Long id) throws EntityNotFoundException {
-        Optional<Produto> produtoSearch = repository.findByCodigo(produtoInput.getCodigo());
+        Optional<Produto> produtoSearchByCodigo = repository.findByCodigo(produtoInput.getCodigo());
 
-        if(produtoSearch.isPresent()) {
-            pesquisarProdutoPeloCodigo(id);
-            produtoInput.setCodigo(produtoSearch.get().getCodigo());
+        if(produtoSearchByCodigo.isPresent()) {
+            if(pesquisarProdutoPorIdentificador(id).equals(produtoSearchByCodigo.get())) {
+                produtoInput.setId(produtoSearchByCodigo.get().getId());
+            } else {
+                throw new IllegalArgumentException("> codigo='"+produtoInput.getCodigo()+"' ou nome='"+produtoInput.getNome()+"' não corresponde ao id='"+id+"' do produto a ser atualizado");
+            }
         } else {
-            throw new IllegalArgumentException("> Nenhum prroduto com esse codigo='"+produtoInput.getCodigo()+"' cadastrado");
+            throw new IllegalArgumentException("> Nenhum produto com code='"+produtoInput.getCodigo()+"' cadastrado!");
         }
 
         return repository.save(produtoInput);

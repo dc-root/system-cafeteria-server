@@ -30,6 +30,10 @@ public abstract class Pessoa {
     @Column(length=13, name="TELEFONE") @JsonProperty("phone")
     protected String telefone;
 
-    @Column(length=10, name="DATA_ANIVERSARIO") @JsonProperty("birthday")
+    @Column(
+        length=10, name="DATA_ANIVERSARIO"
+        //, columnDefinition="DATE")
+    )
+    @JsonProperty("birthday")
     protected String birthDay;
 }

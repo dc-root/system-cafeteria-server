@@ -12,7 +12,6 @@ import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 import br.com.diego.Lanchonete.domain.exceptions.NoDataFoundException;
-import br.com.diego.Lanchonete.domain.exceptions.SucessMessageException;
 import br.com.diego.Lanchonete.domain.repository.ClienteRepository;
 import br.com.diego.Lanchonete.domain.templates.Cliente;
 
@@ -32,11 +31,14 @@ public class ClientServiceImpl {
 
     @Transactional
     public Cliente atualizarCliente(Cliente clienteInput, Long id) throws EntityNotFoundException {
-        Optional<Cliente> clienteSearch = repository.findByCpf(clienteInput.getCpf());
+        Optional<Cliente> clienteSearchByCpf = repository.findByCpf(clienteInput.getCpf());
 
-        if(clienteSearch.isPresent()) {
-            pesquisarClientePorIdentificador(id);
-            clienteInput.setId(clienteSearch.get().getId());
+        if(clienteSearchByCpf.isPresent()) {
+            if(clienteSearchByCpf.get().getId() == id) {
+                clienteInput.setId(clienteSearchByCpf.get().getId());
+            } else {
+                throw new IllegalArgumentException("> CPF='"+clienteInput.getCpf()+"' não corresponde ao id='"+id+"' do produto a ser atualizado");
+            }
         } else {
             throw new IllegalArgumentException("> Nenhum cliente com este CPF='"+clienteInput.getCpf()+"' cadastrado"); 
         }

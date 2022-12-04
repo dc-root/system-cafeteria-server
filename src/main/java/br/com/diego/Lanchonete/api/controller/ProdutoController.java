@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.diego.Lanchonete.domain.service.ProdutoServiceImpl;
 import br.com.diego.Lanchonete.domain.templates.Produto;
 
+// usar para armazenar no estoque
+
 @RestController
 @RequestMapping("/produtos")
 public class ProdutoController {
@@ -25,10 +27,10 @@ public class ProdutoController {
     @Autowired
     private ProdutoServiceImpl serviceProduto;
 
-    @PostMapping
-    public Produto register(@RequestBody @Valid Produto dadosProduto) {
-        return serviceProduto.cadastrarProduto(dadosProduto);
-    }
+    /*@PostMapping
+    public Produto register(@RequestBody @Valid Produto dadosItem) {
+        return serviceProduto.cadastrarProduto(dadosItem);
+    }*/
 
     @GetMapping
     public Page<Produto> list(@PageableDefault(size = 10, sort = { "nome" }) Pageable paginacao) {
@@ -37,7 +39,7 @@ public class ProdutoController {
 
     @GetMapping("/{id}")
     public Produto search(@PathVariable(value="id") Long produtoId) {
-        return serviceProduto.pesquisarProdutoPeloCodigo(produtoId);
+        return serviceProduto.pesquisarProdutoPorIdentificador(produtoId);
     }
 
     @PutMapping("/{id}")

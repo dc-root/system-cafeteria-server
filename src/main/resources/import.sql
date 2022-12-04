@@ -9,4 +9,3 @@
 -- INSERT INTO produtos () VALUES ();
 -- INSERT INTO produtos () VALUES ();
 -- INSERT INTO produtos () VALUES ();
-

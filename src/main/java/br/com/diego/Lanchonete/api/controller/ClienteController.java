@@ -24,7 +24,7 @@ import br.com.diego.Lanchonete.domain.templates.Cliente;
 @RestController
 @RequestMapping("/clientes")
 @CrossOrigin
-public class ClientController {
+public class ClienteController {
     @Autowired
     private ClientServiceImpl customerService;
 
