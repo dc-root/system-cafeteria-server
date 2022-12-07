@@ -30,7 +30,7 @@ public class ClientServiceImpl {
     }
 
     @Transactional
-    public Cliente atualizarCliente(Cliente clienteInput, Long id) throws EntityNotFoundException {
+    public Cliente atualizarCliente(Cliente clienteInput, Long id) {
         Optional<Cliente> clienteSearchByCpf = repository.findByCpf(clienteInput.getCpf());
 
         if(clienteSearchByCpf.isPresent()) {

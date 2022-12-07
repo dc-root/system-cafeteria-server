@@ -23,6 +23,7 @@ import br.com.diego.Lanchonete.domain.templates.Atendente;
 import java.lang.reflect.Field;
 import java.util.Map;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
 @RestController
@@ -32,7 +33,9 @@ public class AtendenteController {
     private AtendenteServiceImpl serviceAtendente;
 
     @PostMapping
-    public Atendente register(@RequestBody @Valid Atendente dadosCadastroAtendente) {
+    public Atendente register(
+        @RequestBody @Valid Atendente dadosCadastroAtendente
+    ) throws IllegalArgumentException {
         return serviceAtendente.cadastrarAtendente(dadosCadastroAtendente);
     }
 
@@ -46,7 +49,7 @@ public class AtendenteController {
     @GetMapping("/{id}")
     public Atendente search(
         @PathVariable(value = "id") Long atendenteId
-    ) {
+    ) throws EntityNotFoundException {
         return serviceAtendente.pesquisarAtendentePorIdentificador(atendenteId);
     }
 
@@ -54,41 +57,39 @@ public class AtendenteController {
     public Atendente update(
         @RequestBody @Valid Atendente atendenteData,
         @PathVariable(value="id") Long atendenteId
-    ) {
+    ) throws IllegalArgumentException {
         return serviceAtendente.atualizarAtendente(atendenteData, atendenteId);
     }
 
-    /*@PatchMapping("/{id}")
-    public Atendente partiallyUpdate(
-        @PathVariable(value="id") Long atendenteId,
-        @RequestBody @Valid Map<String, Object> camposPreenchidos
-    ) {
-        Atendente currentAtendente = serviceAtendente.pesquisarAtendentePorIdentificador(atendenteId);
+    // @PatchMapping("/{id}")
+    // public Atendente partialUpdate(
+    //     @PathVariable(value="id") Long atendenteId,
+    //     @RequestBody @Valid Map<String, Object> fields
+    // ) {
+    //     Atendente currentAtendente = serviceAtendente.pesquisarAtendentePorIdentificador(atendenteId);
 
-        merge(camposPreenchidos, currentAtendente);
+    //     merge(fields, currentAtendente);
+    //     return update(currentAtendente, atendenteId);
+    // }
 
-        return update(currentAtendente, atendenteId);
-    }
+    // private void merge(Map<String, Object> sourceData, Atendente targetItem) {
+    //     ObjectMapper objectMapper = new ObjectMapper();
+    //     Atendente sourceItem = objectMapper.convertValue(sourceData, Atendente.class);
 
-    private void merge(Map<String, Object> camposPreenchidos, Atendente atendenteDestino) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        Atendente atendenteOrigem = objectMapper.convertValue(camposPreenchidos, Atendente.class);
+    //     sourceData.forEach((nomePropriedade, valorPropriedade) -> {
+    //         Field field = ReflectionUtils.findField(Atendente.class, nomePropriedade);
+    //         field.setAccessible(true);
 
-        camposPreenchidos.forEach((nomePropriedade, valorPropriedade) -> {
-            // System.out.println("key: "+keyProperity+" value: "+valueProperity);
-            
-            Field field = ReflectionUtils.findField(Atendente.class, nomePropriedade);
-            field.setAccessible(true);
+    //         Object newValue = ReflectionUtils.getField(field, sourceItem);
 
-            Object novoValor = ReflectionUtils.getField(field, atendenteOrigem);
-            ReflectionUtils.setField(field, atendenteDestino, novoValor);
-        });
-    }*/
+    //         ReflectionUtils.setField(field, targetItem, newValue);
+    //     });
+    // }
 
     @DeleteMapping("/{id}")
     public void remove(
         @PathVariable(value="id") Long atendenteId
-    ) {
+    ) throws EntityNotFoundException {
         serviceAtendente.removerAtendente(
             serviceAtendente
             .pesquisarAtendentePorIdentificador(atendenteId).getId()

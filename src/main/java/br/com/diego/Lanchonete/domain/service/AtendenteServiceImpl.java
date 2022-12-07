@@ -30,7 +30,7 @@ public class AtendenteServiceImpl {
     }
 
     @Transactional
-    public Atendente atualizarAtendente(Atendente atendenteInput, Long id) throws NoDataFoundException {
+    public Atendente atualizarAtendente(Atendente atendenteInput, Long id) {
         Optional<Atendente> atendenteSearchByCpf = repository.findByCpf(atendenteInput.getCpf());
 
         if(atendenteSearchByCpf.isPresent()) {

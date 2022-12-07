@@ -1,5 +1,6 @@
 package br.com.diego.Lanchonete.api.controller;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +30,9 @@ public class ClienteController {
     private ClientServiceImpl customerService;
 
     @PostMapping
-    public Cliente cadastrar(@RequestBody @Valid Cliente dadosCadastroCliente) {
+    public Cliente cadastrar(
+        @RequestBody @Valid Cliente dadosCadastroCliente
+    ) throws IllegalArgumentException {
         customerService.cadastrarCliente(dadosCadastroCliente);
         return dadosCadastroCliente;
     }
@@ -40,7 +43,9 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}")
-    public Cliente search(@PathVariable(value = "id") Long clientId) {
+    public Cliente search(
+        @PathVariable(value = "id") Long clientId
+    ) throws EntityNotFoundException {
         return customerService.pesquisarClientePorIdentificador(clientId);
     }
 
@@ -48,14 +53,14 @@ public class ClienteController {
     public Cliente update(
         @RequestBody @Valid Cliente clientData,
         @PathVariable(value="id") Long clientId
-    ) {
+    ) throws IllegalArgumentException {
         return customerService.atualizarCliente(clientData, clientId);
     }
     
     @DeleteMapping("/{id}")
     public void remove(
         @PathVariable(value="id") Long clientId
-    ) {
+    ) throws EntityNotFoundException {
         customerService.removerCliente(
             customerService.pesquisarClientePorIdentificador(clientId).getId()
         );

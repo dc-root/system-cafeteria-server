@@ -1,5 +1,6 @@
 package br.com.diego.Lanchonete.api.controller;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,12 +34,16 @@ public class ProdutoController {
     }*/
 
     @GetMapping
-    public Page<Produto> list(@PageableDefault(size = 10, sort = { "nome" }) Pageable paginacao) {
+    public Page<Produto> list(
+        @PageableDefault(size = 10, sort = { "nome" }) Pageable paginacao
+    ) {
         return serviceProduto.listarProdutos(paginacao);
     }
 
     @GetMapping("/{id}")
-    public Produto search(@PathVariable(value="id") Long produtoId) {
+    public Produto search(
+        @PathVariable(value="id") Long produtoId
+    ) throws EntityNotFoundException {
         return serviceProduto.pesquisarProdutoPorIdentificador(produtoId);
     }
 
@@ -46,7 +51,7 @@ public class ProdutoController {
     public Produto update(
         @RequestBody @Valid Produto produtoData,
         @PathVariable(value="id") Long produtoId
-    ) {
+    ) throws IllegalArgumentException {
         return serviceProduto.atualizarProduto(produtoData, produtoId);
     }
 

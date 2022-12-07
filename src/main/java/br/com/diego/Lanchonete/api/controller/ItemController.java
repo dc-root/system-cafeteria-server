@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,15 +38,7 @@ public class ItemController {
     public Item search(@PathVariable(value="id") Long itemId) {
         return serviceItem.pesquisarItemPorIdentificador(itemId);
     }
-/*
-    @PutMapping("/{id}")
-    public Item update(
-        @RequestBody @Valid Item itemData,
-        @PathVariable(value="id") Long itemId
-    ) {
-        return serviceItem.atualizarItem(itemData, itemId);
-    }
-*/
+
     @DeleteMapping("/{id}")
     public void remove(
         @PathVariable(value="id") Long itemId

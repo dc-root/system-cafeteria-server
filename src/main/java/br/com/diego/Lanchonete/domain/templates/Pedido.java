@@ -17,6 +17,7 @@ public class Pedido {
     private int numeroDoPedido;
 
     @ManyToOne
+    @JoinColumn
     private Atendente atendente;
 
     @ManyToOne
@@ -27,7 +28,7 @@ public class Pedido {
     @JoinColumn
     private double valorTotal;
 
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany
     @JoinColumn
     private List<Item> listaDeItem;
 
